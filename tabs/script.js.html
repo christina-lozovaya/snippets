@@ -1,0 +1,207 @@
+<html>
+<head>
+<title>script.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #727072; font-style: italic;}
+.s1 { color: #fcfcfa;}
+.s2 { color: #ff4c8f; font-style: italic;}
+.s3 { color: #939293;}
+.s4 { color: #fff48a;}
+.s5 { color: #c0aaff;}
+.s6 { color: #c994ff;}
+.ls0 { height: 1px; border-width: 0; color: #59575a; background-color:#59575a}
+</style>
+</head>
+<body bgcolor="#181818">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+script.js</font>
+</center></td></tr></table>
+<pre><span class="s0">// Получение хеша в адресе сайта</span>
+<span class="s2">function </span><span class="s1">getHash</span><span class="s3">() {</span>
+	<span class="s2">if </span><span class="s3">(</span><span class="s1">location</span><span class="s3">.</span><span class="s1">hash</span><span class="s3">) { </span><span class="s2">return </span><span class="s1">location</span><span class="s3">.</span><span class="s1">hash</span><span class="s3">.</span><span class="s1">replace</span><span class="s3">(</span><span class="s4">'#'</span><span class="s3">, </span><span class="s4">''</span><span class="s3">); }</span>
+<span class="s3">}</span><hr class="ls0"><span class="s0">// Указание хеша в адресе сайта</span>
+<span class="s2">function </span><span class="s1">setHash</span><span class="s3">(</span><span class="s1">hash</span><span class="s3">) {</span>
+	<span class="s1">hash </span><span class="s5">= </span><span class="s1">hash </span><span class="s5">? </span><span class="s4">`#</span><span class="s1">$</span><span class="s3">{</span><span class="s1">hash</span><span class="s3">}</span><span class="s4">` </span><span class="s5">: </span><span class="s1">window</span><span class="s3">.</span><span class="s1">location</span><span class="s3">.</span><span class="s1">href</span><span class="s3">.</span><span class="s1">split</span><span class="s3">(</span><span class="s4">'#'</span><span class="s3">)[</span><span class="s6">0</span><span class="s3">];</span>
+	<span class="s1">history</span><span class="s3">.</span><span class="s1">pushState</span><span class="s3">(</span><span class="s4">''</span><span class="s3">, </span><span class="s4">''</span><span class="s3">, </span><span class="s1">hash</span><span class="s3">);</span>
+<span class="s3">}</span>
+<hr class="ls0"><span class="s0">// Обработа медиа запросов из атрибутов</span>
+<span class="s2">function </span><span class="s1">dataMediaQueries</span><span class="s3">(</span><span class="s1">array</span><span class="s3">, </span><span class="s1">dataSetValue</span><span class="s3">) {</span>
+	<span class="s0">// Получение объектов с медиа запросами</span>
+	<span class="s2">const </span><span class="s1">media </span><span class="s5">= </span><span class="s1">Array</span><span class="s3">.</span><span class="s1">from</span><span class="s3">(</span><span class="s1">array</span><span class="s3">).</span><span class="s1">filter</span><span class="s3">(</span><span class="s2">function </span><span class="s3">(</span><span class="s1">item</span><span class="s3">, </span><span class="s1">index</span><span class="s3">, </span><span class="s1">self</span><span class="s3">) {</span>
+		<span class="s2">if </span><span class="s3">(</span><span class="s1">item</span><span class="s3">.</span><span class="s1">dataset</span><span class="s3">[</span><span class="s1">dataSetValue</span><span class="s3">]) {</span>
+			<span class="s2">return </span><span class="s1">item</span><span class="s3">.</span><span class="s1">dataset</span><span class="s3">[</span><span class="s1">dataSetValue</span><span class="s3">].</span><span class="s1">split</span><span class="s3">(</span><span class="s4">&quot;,&quot;</span><span class="s3">)[</span><span class="s6">0</span><span class="s3">];</span>
+		<span class="s3">}</span>
+	<span class="s3">});</span>
+	<span class="s0">// Инициализация объектов с медиа запросами</span>
+	<span class="s2">if </span><span class="s3">(</span><span class="s1">media</span><span class="s3">.</span><span class="s1">length</span><span class="s3">) {</span>
+		<span class="s2">const </span><span class="s1">breakpointsArray </span><span class="s5">= </span><span class="s3">[];</span>
+		<span class="s1">media</span><span class="s3">.</span><span class="s1">forEach</span><span class="s3">(</span><span class="s1">item </span><span class="s5">=&gt; </span><span class="s3">{</span>
+			<span class="s2">const </span><span class="s1">params </span><span class="s5">= </span><span class="s1">item</span><span class="s3">.</span><span class="s1">dataset</span><span class="s3">[</span><span class="s1">dataSetValue</span><span class="s3">];</span>
+			<span class="s2">const </span><span class="s1">breakpoint </span><span class="s5">= </span><span class="s3">{};</span>
+			<span class="s2">const </span><span class="s1">paramsArray </span><span class="s5">= </span><span class="s1">params</span><span class="s3">.</span><span class="s1">split</span><span class="s3">(</span><span class="s4">&quot;,&quot;</span><span class="s3">);</span>
+			<span class="s1">breakpoint</span><span class="s3">.</span><span class="s1">value </span><span class="s5">= </span><span class="s1">paramsArray</span><span class="s3">[</span><span class="s6">0</span><span class="s3">];</span>
+			<span class="s1">breakpoint</span><span class="s3">.</span><span class="s1">type </span><span class="s5">= </span><span class="s1">paramsArray</span><span class="s3">[</span><span class="s6">1</span><span class="s3">] </span><span class="s5">? </span><span class="s1">paramsArray</span><span class="s3">[</span><span class="s6">1</span><span class="s3">].</span><span class="s1">trim</span><span class="s3">() </span><span class="s5">: </span><span class="s4">&quot;max&quot;</span><span class="s3">;</span>
+			<span class="s1">breakpoint</span><span class="s3">.</span><span class="s1">item </span><span class="s5">= </span><span class="s1">item</span><span class="s3">;</span>
+			<span class="s1">breakpointsArray</span><span class="s3">.</span><span class="s1">push</span><span class="s3">(</span><span class="s1">breakpoint</span><span class="s3">);</span>
+		<span class="s3">});</span>
+		<span class="s0">// Получаем уникальные брейкпоинты</span>
+		<span class="s2">let </span><span class="s1">mdQueries </span><span class="s5">= </span><span class="s1">breakpointsArray</span><span class="s3">.</span><span class="s1">map</span><span class="s3">(</span><span class="s2">function </span><span class="s3">(</span><span class="s1">item</span><span class="s3">) {</span>
+			<span class="s2">return </span><span class="s4">'(' </span><span class="s5">+ </span><span class="s1">item</span><span class="s3">.</span><span class="s1">type </span><span class="s5">+ </span><span class="s4">&quot;-width: &quot; </span><span class="s5">+ </span><span class="s1">item</span><span class="s3">.</span><span class="s1">value </span><span class="s5">+ </span><span class="s4">&quot;px),&quot; </span><span class="s5">+ </span><span class="s1">item</span><span class="s3">.</span><span class="s1">value </span><span class="s5">+ </span><span class="s4">',' </span><span class="s5">+ </span><span class="s1">item</span><span class="s3">.</span><span class="s1">type</span><span class="s3">;</span>
+		<span class="s3">});</span>
+		<span class="s1">mdQueries </span><span class="s5">= </span><span class="s1">uniqArray</span><span class="s3">(</span><span class="s1">mdQueries</span><span class="s3">);</span>
+		<span class="s2">const </span><span class="s1">mdQueriesArray </span><span class="s5">= </span><span class="s3">[];</span>
+
+		<span class="s2">if </span><span class="s3">(</span><span class="s1">mdQueries</span><span class="s3">.</span><span class="s1">length</span><span class="s3">) {</span>
+			<span class="s0">// Работаем с каждым брейкпоинтом</span>
+			<span class="s1">mdQueries</span><span class="s3">.</span><span class="s1">forEach</span><span class="s3">(</span><span class="s1">breakpoint </span><span class="s5">=&gt; </span><span class="s3">{</span>
+				<span class="s2">const </span><span class="s1">paramsArray </span><span class="s5">= </span><span class="s1">breakpoint</span><span class="s3">.</span><span class="s1">split</span><span class="s3">(</span><span class="s4">&quot;,&quot;</span><span class="s3">);</span>
+				<span class="s2">const </span><span class="s1">mediaBreakpoint </span><span class="s5">= </span><span class="s1">paramsArray</span><span class="s3">[</span><span class="s6">1</span><span class="s3">];</span>
+				<span class="s2">const </span><span class="s1">mediaType </span><span class="s5">= </span><span class="s1">paramsArray</span><span class="s3">[</span><span class="s6">2</span><span class="s3">];</span>
+				<span class="s2">const </span><span class="s1">matchMedia </span><span class="s5">= </span><span class="s1">window</span><span class="s3">.</span><span class="s1">matchMedia</span><span class="s3">(</span><span class="s1">paramsArray</span><span class="s3">[</span><span class="s6">0</span><span class="s3">]);</span>
+				<span class="s0">// Объекты с нужными условиями</span>
+				<span class="s2">const </span><span class="s1">itemsArray </span><span class="s5">= </span><span class="s1">breakpointsArray</span><span class="s3">.</span><span class="s1">filter</span><span class="s3">(</span><span class="s2">function </span><span class="s3">(</span><span class="s1">item</span><span class="s3">) {</span>
+					<span class="s2">if </span><span class="s3">(</span><span class="s1">item</span><span class="s3">.</span><span class="s1">value </span><span class="s5">=== </span><span class="s1">mediaBreakpoint </span><span class="s5">&amp;&amp; </span><span class="s1">item</span><span class="s3">.</span><span class="s1">type </span><span class="s5">=== </span><span class="s1">mediaType</span><span class="s3">) {</span>
+						<span class="s2">return true</span><span class="s3">;</span>
+					<span class="s3">}</span>
+				<span class="s3">});</span>
+				<span class="s1">mdQueriesArray</span><span class="s3">.</span><span class="s1">push</span><span class="s3">({</span>
+					<span class="s1">itemsArray</span><span class="s3">,</span>
+					<span class="s1">matchMedia</span>
+				<span class="s3">})</span>
+			<span class="s3">});</span>
+			<span class="s2">return </span><span class="s1">mdQueriesArray</span><span class="s3">;</span>
+		<span class="s3">}</span>
+	<span class="s3">}</span>
+<span class="s3">}</span>
+<hr class="ls0"><span class="s2">function </span><span class="s1">tabs</span><span class="s3">() {</span>
+	<span class="s2">const </span><span class="s1">tabs </span><span class="s5">= </span><span class="s1">document</span><span class="s3">.</span><span class="s1">querySelectorAll</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">);</span>
+	<span class="s2">let </span><span class="s1">tabsActiveHash </span><span class="s5">= </span><span class="s3">[];</span>
+
+	<span class="s2">if </span><span class="s3">(</span><span class="s1">tabs</span><span class="s3">.</span><span class="s1">length </span><span class="s5">&gt; </span><span class="s6">0</span><span class="s3">) {</span>
+		<span class="s2">const </span><span class="s1">hash </span><span class="s5">= </span><span class="s1">getHash</span><span class="s3">();</span>
+		<span class="s2">if </span><span class="s3">(</span><span class="s1">hash </span><span class="s5">&amp;&amp; </span><span class="s1">hash</span><span class="s3">.</span><span class="s1">startsWith</span><span class="s3">(</span><span class="s4">'tab-'</span><span class="s3">)) {</span>
+			<span class="s1">tabsActiveHash </span><span class="s5">= </span><span class="s1">hash</span><span class="s3">.</span><span class="s1">replace</span><span class="s3">(</span><span class="s4">'tab-'</span><span class="s3">, </span><span class="s4">''</span><span class="s3">).</span><span class="s1">split</span><span class="s3">(</span><span class="s4">'-'</span><span class="s3">);</span>
+		<span class="s3">}</span>
+		<span class="s1">tabs</span><span class="s3">.</span><span class="s1">forEach</span><span class="s3">((</span><span class="s1">tabsBlock</span><span class="s3">, </span><span class="s1">index</span><span class="s3">) </span><span class="s5">=&gt; </span><span class="s3">{</span>
+			<span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s4">'_tab-init'</span><span class="s3">);</span>
+			<span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">setAttribute</span><span class="s3">(</span><span class="s4">'data-tabs-index'</span><span class="s3">, </span><span class="s1">index</span><span class="s3">);</span>
+			<span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">addEventListener</span><span class="s3">(</span><span class="s4">&quot;click&quot;</span><span class="s3">, </span><span class="s1">setTabsAction</span><span class="s3">);</span>
+			<span class="s1">initTabs</span><span class="s3">(</span><span class="s1">tabsBlock</span><span class="s3">);</span>
+		<span class="s3">});</span>
+
+		<span class="s0">// Получение слойлеров с медиа запросами</span>
+		<span class="s2">let </span><span class="s1">mdQueriesArray </span><span class="s5">= </span><span class="s1">dataMediaQueries</span><span class="s3">(</span><span class="s1">tabs</span><span class="s3">, </span><span class="s4">&quot;tabs&quot;</span><span class="s3">);</span>
+		<span class="s2">if </span><span class="s3">(</span><span class="s1">mdQueriesArray </span><span class="s5">&amp;&amp; </span><span class="s1">mdQueriesArray</span><span class="s3">.</span><span class="s1">length</span><span class="s3">) {</span>
+			<span class="s1">mdQueriesArray</span><span class="s3">.</span><span class="s1">forEach</span><span class="s3">(</span><span class="s1">mdQueriesItem </span><span class="s5">=&gt; </span><span class="s3">{</span>
+				<span class="s0">// Событие</span>
+				<span class="s1">mdQueriesItem</span><span class="s3">.</span><span class="s1">matchMedia</span><span class="s3">.</span><span class="s1">addEventListener</span><span class="s3">(</span><span class="s4">&quot;change&quot;</span><span class="s3">, </span><span class="s2">function </span><span class="s3">() {</span>
+					<span class="s1">setTitlePosition</span><span class="s3">(</span><span class="s1">mdQueriesItem</span><span class="s3">.</span><span class="s1">itemsArray</span><span class="s3">, </span><span class="s1">mdQueriesItem</span><span class="s3">.</span><span class="s1">matchMedia</span><span class="s3">);</span>
+				<span class="s3">});</span>
+				<span class="s1">setTitlePosition</span><span class="s3">(</span><span class="s1">mdQueriesItem</span><span class="s3">.</span><span class="s1">itemsArray</span><span class="s3">, </span><span class="s1">mdQueriesItem</span><span class="s3">.</span><span class="s1">matchMedia</span><span class="s3">);</span>
+			<span class="s3">});</span>
+		<span class="s3">}</span>
+	<span class="s3">}</span><hr class="ls0">	<span class="s0">// Установка позиций заголовков</span>
+	<span class="s2">function </span><span class="s1">setTitlePosition</span><span class="s3">(</span><span class="s1">tabsMediaArray</span><span class="s3">, </span><span class="s1">matchMedia</span><span class="s3">) {</span>
+		<span class="s1">tabsMediaArray</span><span class="s3">.</span><span class="s1">forEach</span><span class="s3">(</span><span class="s1">tabsMediaItem </span><span class="s5">=&gt; </span><span class="s3">{</span>
+			<span class="s1">tabsMediaItem </span><span class="s5">= </span><span class="s1">tabsMediaItem</span><span class="s3">.</span><span class="s1">item</span><span class="s3">;</span>
+			<span class="s2">let </span><span class="s1">tabsTitles </span><span class="s5">= </span><span class="s1">tabsMediaItem</span><span class="s3">.</span><span class="s1">querySelector</span><span class="s3">(</span><span class="s4">'[data-tabs-titles]'</span><span class="s3">);</span>
+			<span class="s2">let </span><span class="s1">tabsTitleItems </span><span class="s5">= </span><span class="s1">tabsMediaItem</span><span class="s3">.</span><span class="s1">querySelectorAll</span><span class="s3">(</span><span class="s4">'[data-tabs-title]'</span><span class="s3">);</span>
+			<span class="s2">let </span><span class="s1">tabsContent </span><span class="s5">= </span><span class="s1">tabsMediaItem</span><span class="s3">.</span><span class="s1">querySelector</span><span class="s3">(</span><span class="s4">'[data-tabs-body]'</span><span class="s3">);</span>
+			<span class="s2">let </span><span class="s1">tabsContentItems </span><span class="s5">= </span><span class="s1">tabsMediaItem</span><span class="s3">.</span><span class="s1">querySelectorAll</span><span class="s3">(</span><span class="s4">'[data-tabs-item]'</span><span class="s3">);</span>
+			<span class="s1">tabsTitleItems </span><span class="s5">= </span><span class="s1">Array</span><span class="s3">.</span><span class="s1">from</span><span class="s3">(</span><span class="s1">tabsTitleItems</span><span class="s3">).</span><span class="s1">filter</span><span class="s3">(</span><span class="s1">item </span><span class="s5">=&gt; </span><span class="s1">item</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">) </span><span class="s5">=== </span><span class="s1">tabsMediaItem</span><span class="s3">);</span>
+			<span class="s1">tabsContentItems </span><span class="s5">= </span><span class="s1">Array</span><span class="s3">.</span><span class="s1">from</span><span class="s3">(</span><span class="s1">tabsContentItems</span><span class="s3">).</span><span class="s1">filter</span><span class="s3">(</span><span class="s1">item </span><span class="s5">=&gt; </span><span class="s1">item</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">) </span><span class="s5">=== </span><span class="s1">tabsMediaItem</span><span class="s3">);</span>
+			<span class="s1">tabsContentItems</span><span class="s3">.</span><span class="s1">forEach</span><span class="s3">((</span><span class="s1">tabsContentItem</span><span class="s3">, </span><span class="s1">index</span><span class="s3">) </span><span class="s5">=&gt; </span><span class="s3">{</span>
+				<span class="s2">if </span><span class="s3">(</span><span class="s1">matchMedia</span><span class="s3">.</span><span class="s1">matches</span><span class="s3">) {</span>
+					<span class="s1">tabsContent</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">tabsTitleItems</span><span class="s3">[</span><span class="s1">index</span><span class="s3">]);</span>
+					<span class="s1">tabsContent</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">tabsContentItem</span><span class="s3">);</span>
+					<span class="s1">tabsMediaItem</span><span class="s3">.</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s4">'_tab-spoller'</span><span class="s3">);</span>
+				<span class="s3">} </span><span class="s2">else </span><span class="s3">{</span>
+					<span class="s1">tabsTitles</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">tabsTitleItems</span><span class="s3">[</span><span class="s1">index</span><span class="s3">]);</span>
+					<span class="s1">tabsMediaItem</span><span class="s3">.</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s4">'_tab-spoller'</span><span class="s3">);</span>
+				<span class="s3">}</span>
+			<span class="s3">});</span>
+		<span class="s3">});</span>
+	<span class="s3">}</span><hr class="ls0">	<span class="s0">// Работа с контентом</span>
+	<span class="s2">function </span><span class="s1">initTabs</span><span class="s3">(</span><span class="s1">tabsBlock</span><span class="s3">) {</span>
+		<span class="s2">let </span><span class="s1">tabsTitles </span><span class="s5">= </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">querySelectorAll</span><span class="s3">(</span><span class="s4">'[data-tabs-titles]&gt;*'</span><span class="s3">);</span>
+		<span class="s2">let </span><span class="s1">tabsContent </span><span class="s5">= </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">querySelectorAll</span><span class="s3">(</span><span class="s4">'[data-tabs-body]&gt;*'</span><span class="s3">);</span>
+		<span class="s2">const </span><span class="s1">tabsBlockIndex </span><span class="s5">= </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">dataset</span><span class="s3">.</span><span class="s1">tabsIndex</span><span class="s3">;</span>
+		<span class="s2">const </span><span class="s1">tabsActiveHashBlock </span><span class="s5">= </span><span class="s1">tabsActiveHash</span><span class="s3">[</span><span class="s6">0</span><span class="s3">] </span><span class="s5">== </span><span class="s1">tabsBlockIndex</span><span class="s3">;</span>
+
+		<span class="s2">if </span><span class="s3">(</span><span class="s1">tabsActiveHashBlock</span><span class="s3">) {</span>
+			<span class="s2">const </span><span class="s1">tabsActiveTitle </span><span class="s5">= </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">querySelector</span><span class="s3">(</span><span class="s4">'[data-tabs-titles]&gt;._tab-active'</span><span class="s3">);</span>
+			<span class="s1">tabsActiveTitle </span><span class="s5">? </span><span class="s1">tabsActiveTitle</span><span class="s3">.</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s4">'_tab-active'</span><span class="s3">) </span><span class="s5">: </span><span class="s2">null</span><span class="s3">;</span>
+		<span class="s3">}</span>
+		<span class="s2">if </span><span class="s3">(</span><span class="s1">tabsContent</span><span class="s3">.</span><span class="s1">length</span><span class="s3">) {</span>
+			<span class="s1">tabsContent </span><span class="s5">= </span><span class="s1">Array</span><span class="s3">.</span><span class="s1">from</span><span class="s3">(</span><span class="s1">tabsContent</span><span class="s3">).</span><span class="s1">filter</span><span class="s3">(</span><span class="s1">item </span><span class="s5">=&gt; </span><span class="s1">item</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">) </span><span class="s5">=== </span><span class="s1">tabsBlock</span><span class="s3">);</span>
+			<span class="s1">tabsTitles </span><span class="s5">= </span><span class="s1">Array</span><span class="s3">.</span><span class="s1">from</span><span class="s3">(</span><span class="s1">tabsTitles</span><span class="s3">).</span><span class="s1">filter</span><span class="s3">(</span><span class="s1">item </span><span class="s5">=&gt; </span><span class="s1">item</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">) </span><span class="s5">=== </span><span class="s1">tabsBlock</span><span class="s3">);</span>
+			<span class="s1">tabsContent</span><span class="s3">.</span><span class="s1">forEach</span><span class="s3">((</span><span class="s1">tabsContentItem</span><span class="s3">, </span><span class="s1">index</span><span class="s3">) </span><span class="s5">=&gt; </span><span class="s3">{</span>
+				<span class="s1">tabsTitles</span><span class="s3">[</span><span class="s1">index</span><span class="s3">].</span><span class="s1">setAttribute</span><span class="s3">(</span><span class="s4">'data-tabs-title'</span><span class="s3">, </span><span class="s4">''</span><span class="s3">);</span>
+				<span class="s1">tabsContentItem</span><span class="s3">.</span><span class="s1">setAttribute</span><span class="s3">(</span><span class="s4">'data-tabs-item'</span><span class="s3">, </span><span class="s4">''</span><span class="s3">);</span>
+
+				<span class="s2">if </span><span class="s3">(</span><span class="s1">tabsActiveHashBlock </span><span class="s5">&amp;&amp; </span><span class="s1">index </span><span class="s5">== </span><span class="s1">tabsActiveHash</span><span class="s3">[</span><span class="s6">1</span><span class="s3">]) {</span>
+					<span class="s1">tabsTitles</span><span class="s3">[</span><span class="s1">index</span><span class="s3">].</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s4">'_tab-active'</span><span class="s3">);</span>
+				<span class="s3">}</span>
+				<span class="s1">tabsContentItem</span><span class="s3">.</span><span class="s1">hidden </span><span class="s5">= !</span><span class="s1">tabsTitles</span><span class="s3">[</span><span class="s1">index</span><span class="s3">].</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">contains</span><span class="s3">(</span><span class="s4">'_tab-active'</span><span class="s3">);</span>
+			<span class="s3">});</span>
+		<span class="s3">}</span>
+	<span class="s3">}</span><hr class="ls0">	<span class="s2">function </span><span class="s1">setTabsStatus</span><span class="s3">(</span><span class="s1">tabsBlock</span><span class="s3">) {</span>
+		<span class="s2">let </span><span class="s1">tabsTitles </span><span class="s5">= </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">querySelectorAll</span><span class="s3">(</span><span class="s4">'[data-tabs-title]'</span><span class="s3">);</span>
+		<span class="s2">let </span><span class="s1">tabsContent </span><span class="s5">= </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">querySelectorAll</span><span class="s3">(</span><span class="s4">'[data-tabs-item]'</span><span class="s3">);</span>
+		<span class="s2">const </span><span class="s1">tabsBlockIndex </span><span class="s5">= </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">dataset</span><span class="s3">.</span><span class="s1">tabsIndex</span><span class="s3">;</span><hr class="ls0">		<span class="s2">function </span><span class="s1">isTabsAnamate</span><span class="s3">(</span><span class="s1">tabsBlock</span><span class="s3">) {</span>
+			<span class="s2">if </span><span class="s3">(</span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">hasAttribute</span><span class="s3">(</span><span class="s4">'data-tabs-animate'</span><span class="s3">)) {</span>
+				<span class="s2">return </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">dataset</span><span class="s3">.</span><span class="s1">tabsAnimate </span><span class="s5">&gt; </span><span class="s6">0 </span><span class="s5">? </span><span class="s1">Number</span><span class="s3">(</span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">dataset</span><span class="s3">.</span><span class="s1">tabsAnimate</span><span class="s3">) </span><span class="s5">: </span><span class="s6">500</span><span class="s3">;</span>
+			<span class="s3">}</span>
+		<span class="s3">}</span>
+		<span class="s2">const </span><span class="s1">tabsBlockAnimate </span><span class="s5">= </span><span class="s1">isTabsAnamate</span><span class="s3">(</span><span class="s1">tabsBlock</span><span class="s3">);</span>
+		<span class="s2">if </span><span class="s3">(</span><span class="s1">tabsContent</span><span class="s3">.</span><span class="s1">length </span><span class="s5">&gt; </span><span class="s6">0</span><span class="s3">) {</span>
+			<span class="s2">const </span><span class="s1">isHash </span><span class="s5">= </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">hasAttribute</span><span class="s3">(</span><span class="s4">'data-tabs-hash'</span><span class="s3">);</span>
+			<span class="s1">tabsContent </span><span class="s5">= </span><span class="s1">Array</span><span class="s3">.</span><span class="s1">from</span><span class="s3">(</span><span class="s1">tabsContent</span><span class="s3">).</span><span class="s1">filter</span><span class="s3">(</span><span class="s1">item </span><span class="s5">=&gt; </span><span class="s1">item</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">) </span><span class="s5">=== </span><span class="s1">tabsBlock</span><span class="s3">);</span>
+			<span class="s1">tabsTitles </span><span class="s5">= </span><span class="s1">Array</span><span class="s3">.</span><span class="s1">from</span><span class="s3">(</span><span class="s1">tabsTitles</span><span class="s3">).</span><span class="s1">filter</span><span class="s3">(</span><span class="s1">item </span><span class="s5">=&gt; </span><span class="s1">item</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">) </span><span class="s5">=== </span><span class="s1">tabsBlock</span><span class="s3">);</span>
+			<span class="s1">tabsContent</span><span class="s3">.</span><span class="s1">forEach</span><span class="s3">((</span><span class="s1">tabsContentItem</span><span class="s3">, </span><span class="s1">index</span><span class="s3">) </span><span class="s5">=&gt; </span><span class="s3">{</span>
+				<span class="s2">if </span><span class="s3">(</span><span class="s1">tabsTitles</span><span class="s3">[</span><span class="s1">index</span><span class="s3">].</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">contains</span><span class="s3">(</span><span class="s4">'_tab-active'</span><span class="s3">)) {</span>
+					<span class="s2">if </span><span class="s3">(</span><span class="s1">tabsBlockAnimate</span><span class="s3">) {</span>
+						<span class="s1">_slideDown</span><span class="s3">(</span><span class="s1">tabsContentItem</span><span class="s3">, </span><span class="s1">tabsBlockAnimate</span><span class="s3">);</span>
+					<span class="s3">} </span><span class="s2">else </span><span class="s3">{</span>
+						<span class="s1">tabsContentItem</span><span class="s3">.</span><span class="s1">hidden </span><span class="s5">= </span><span class="s2">false</span><span class="s3">;</span>
+					<span class="s3">}</span>
+					<span class="s2">if </span><span class="s3">(</span><span class="s1">isHash </span><span class="s5">&amp;&amp; !</span><span class="s1">tabsContentItem</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'.popup'</span><span class="s3">)) {</span>
+						<span class="s1">setHash</span><span class="s3">(</span><span class="s4">`tab-</span><span class="s1">$</span><span class="s3">{</span><span class="s1">tabsBlockIndex</span><span class="s3">}</span><span class="s4">-</span><span class="s1">$</span><span class="s3">{</span><span class="s1">index</span><span class="s3">}</span><span class="s4">`</span><span class="s3">);</span>
+					<span class="s3">}</span>
+				<span class="s3">} </span><span class="s2">else </span><span class="s3">{</span>
+					<span class="s2">if </span><span class="s3">(</span><span class="s1">tabsBlockAnimate</span><span class="s3">) {</span>
+						<span class="s1">_slideUp</span><span class="s3">(</span><span class="s1">tabsContentItem</span><span class="s3">, </span><span class="s1">tabsBlockAnimate</span><span class="s3">);</span>
+					<span class="s3">} </span><span class="s2">else </span><span class="s3">{</span>
+						<span class="s1">tabsContentItem</span><span class="s3">.</span><span class="s1">hidden </span><span class="s5">= </span><span class="s2">true</span><span class="s3">;</span>
+					<span class="s3">}</span>
+				<span class="s3">}</span>
+			<span class="s3">});</span>
+		<span class="s3">}</span>
+	<span class="s3">}</span><hr class="ls0">	<span class="s2">function </span><span class="s1">setTabsAction</span><span class="s3">(</span><span class="s1">e</span><span class="s3">) {</span>
+		<span class="s2">const </span><span class="s1">el </span><span class="s5">= </span><span class="s1">e</span><span class="s3">.</span><span class="s1">target</span><span class="s3">;</span>
+		<span class="s2">if </span><span class="s3">(</span><span class="s1">el</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs-title]'</span><span class="s3">)) {</span>
+			<span class="s2">const </span><span class="s1">tabTitle </span><span class="s5">= </span><span class="s1">el</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs-title]'</span><span class="s3">);</span>
+			<span class="s2">const </span><span class="s1">tabsBlock </span><span class="s5">= </span><span class="s1">tabTitle</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">);</span>
+			<span class="s2">if </span><span class="s3">(</span><span class="s5">!</span><span class="s1">tabTitle</span><span class="s3">.</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">contains</span><span class="s3">(</span><span class="s4">'_tab-active'</span><span class="s3">) </span><span class="s5">&amp;&amp; !</span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">querySelector</span><span class="s3">(</span><span class="s4">'._slide'</span><span class="s3">)) {</span>
+				<span class="s2">let </span><span class="s1">tabActiveTitle </span><span class="s5">= </span><span class="s1">tabsBlock</span><span class="s3">.</span><span class="s1">querySelectorAll</span><span class="s3">(</span><span class="s4">'[data-tabs-title]._tab-active'</span><span class="s3">);</span>
+				<span class="s1">tabActiveTitle</span><span class="s3">.</span><span class="s1">length </span><span class="s5">? </span><span class="s1">tabActiveTitle </span><span class="s5">= </span><span class="s1">Array</span><span class="s3">.</span><span class="s1">from</span><span class="s3">(</span><span class="s1">tabActiveTitle</span><span class="s3">).</span><span class="s1">filter</span><span class="s3">(</span><span class="s1">item </span><span class="s5">=&gt; </span><span class="s1">item</span><span class="s3">.</span><span class="s1">closest</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">) </span><span class="s5">=== </span><span class="s1">tabsBlock</span><span class="s3">) </span><span class="s5">: </span><span class="s2">null</span><span class="s3">;</span>
+				<span class="s1">tabActiveTitle</span><span class="s3">.</span><span class="s1">length </span><span class="s5">? </span><span class="s1">tabActiveTitle</span><span class="s3">[</span><span class="s6">0</span><span class="s3">].</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">remove</span><span class="s3">(</span><span class="s4">'_tab-active'</span><span class="s3">) </span><span class="s5">: </span><span class="s2">null</span><span class="s3">;</span>
+				<span class="s1">tabTitle</span><span class="s3">.</span><span class="s1">classList</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s4">'_tab-active'</span><span class="s3">);</span>
+				<span class="s1">setTabsStatus</span><span class="s3">(</span><span class="s1">tabsBlock</span><span class="s3">);</span>
+			<span class="s3">}</span>
+			<span class="s1">e</span><span class="s3">.</span><span class="s1">preventDefault</span><span class="s3">();</span>
+		<span class="s3">}</span>
+	<span class="s3">}</span>
+<span class="s3">}</span>
+
+<span class="s1">document</span><span class="s3">.</span><span class="s1">addEventListener</span><span class="s3">(</span><span class="s4">&quot;DOMContentLoaded&quot;</span><span class="s3">, () </span><span class="s5">=&gt; </span><span class="s3">{</span>
+	<span class="s0">/* if page has tabs */</span>
+	<span class="s2">if</span><span class="s3">( </span><span class="s1">document</span><span class="s3">.</span><span class="s1">querySelectorAll</span><span class="s3">(</span><span class="s4">'[data-tabs]'</span><span class="s3">).</span><span class="s1">length </span><span class="s5">&gt; </span><span class="s6">0 </span><span class="s3">) {</span>
+		<span class="s1">tabs</span><span class="s3">();</span>
+	<span class="s3">}</span>
+<span class="s3">});</span></pre>
+</body>
+</html>
